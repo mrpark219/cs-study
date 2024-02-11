@@ -94,3 +94,47 @@
 #### 대용량 트래픽 대응 방안
 
 -   선착순 이벤트, 명절 KTX 예약 등 대용량 트래픽이 발생하는 경우에는 첫 페이지에 로그인도 필요없는 순수 HTML 정적 페이지를 하나 둔다. 해당 HTML에 이벤트 참여 버튼을 누르게 하는 식으로 해결한다. 무상태로 해결할 수 있는 부분은 최대한 무상태로 처리하고, 어쩔 수 없는 부분에 한해서만 상태 유지를 하로도록 잘 분리해서 설계하는 것이 중요하다.
+
+## HTTP 메시지
+
+#### HTTP 메시지 구조
+
+-   start-line: 시작 라인
+-   header: 헤더
+-   empty line: 공백 라인(CRLF) - 필수
+-   message body
+
+#### 시작 라인
+
+-   start-line = request-line(요청) / status-line(응답)
+    -   request-line = method SP(공백) request-target SP HTTP-version CRLF(엔터)
+        -   method: HTTP 메서드(GET, POST, PUT, DELETE...), 서버가 수행해야 할 동작 지정
+        -   request-target: 요청 대상, 절대경로[?쿼리], 절대경로는 "/"로 시작하는 경로
+        -   HTTP-version: HTTP 버전
+    -   status-line = HTTP-version SP status-code SP reason-phrase CRLF
+        -   HTTP-version: HTTP 버전
+        -   status-code: HTTP 상태 코드 → 요청 성공, 실패를 나타냄
+            -   200: 성공
+            -   400: 클라이언트 요청 오류
+            -   500: 서버 내부 오류
+        -   reason-phrase: 이유 문구 → 사람이 이해할 수 있는 짧은 상태 코드 설명 글
+
+#### HTTP 헤더
+
+-   header-field = filed-name ":" OWS field-value OWS (OWS: 띄어쓰기 허용)
+-   field-name은 대소문자 구분 없음
+-   HTTP 전송에 필요한 모든 부가정보
+    -   메시지 바디의 내용
+    -   메시지 바디의 크기
+    -   압축
+    -   인증
+    -   요청 클라이언트(브라우저) 정보
+    -   서버 애플리케이션 정보
+    -   캐시 관리 정보
+-   표준 헤더가 많음
+-   필요 시 임의의 헤더 추가 가능
+
+#### HTTP 메시지 바디
+
+-   실제 전송할 데이터
+-   HTML 문서, 이미지, 영상, JSON 등 byte로 표현할 수 있는 모든 데이터 전송 가능
