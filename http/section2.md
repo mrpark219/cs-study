@@ -35,3 +35,17 @@
 -   path: 리소스 경로, 계층적 구조 → /test
 -   query: 쿼리 파라미터, key=value 형태, ?로 시작, &로 추가 가능 → word=hello-world&test=hi
 -   fragment: html 내부 북마크 등에 사용, 서버에 전송하는 정보 아님 → #content
+
+## 웹 브라우저 요청 흐름
+
+#### 웹 브라우저 요청 흐름
+
+1. 웹 브라우저에 https://www.example.com:443/search?q=hello 입력
+2. www.example.com 도메인을 DNS 서버에 검색해서 서버 IP 주소를 찾음
+3. 찾은 서버 IP 주소와 포트 정보 등을 조합하여 웹 브라우저가 HTTP 메시지 생성
+4. SOCKET 라이브러리를 통해 TCP/IP 계층에 전달
+5. 3-way-handshake로 서버와 연결
+6. TCP/IP 패킷을 생성하여 서버로 전달. 이때 HTTP 메시지를 데이터에 포함
+7. 서버는 패킷이 도착하면 내부 HTTP 메서드를 해석하여 정보에 맞는 처리 진행
+8. 서버에서 HTTP 응답 메시지 생성
+9. 웹 브라우저는 응답 메시지를 해석하여 동작
