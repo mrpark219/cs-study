@@ -104,3 +104,17 @@
 
 -   If-Match, If-None-Match: ETag 값 사용
 -   If-Modified-Since, If-Unmodified-Sine: Last-Modified 값 사용
+
+## 프록시 캐시
+
+#### 프록시 캐시
+
+-   프록시는 원(origin) 서버를 대리하여 통신하며 캐시, 로드밸런서 등 중계 역할을 하는 서버이다.
+-   CDN(Content Delivery Network), 아마존의 CloudFront 등이 프록시 캐시 서버이다.
+
+#### Cache-Control
+
+-   Cache-Control: public → 응답이 public 캐시에 저장되어도 됨
+-   Cache-Control: private → 응답이 해당 사용자만을 위한 것임. private 캐시에 저장해야 함(기본값)
+-   Cache-Control: s-maxage → 프록시 캐시에만 적용되는 max-age
+-   Age: 60(HTTP 헤더) → 오리진 서버에서 응답 후 프록시 캐시 내에 머문 시간(초)
